@@ -1,5 +1,6 @@
 import "./env.js";
 import express from "express";
+import cors from "cors";
 import productRoutes from "./src/product/routes/product.routes.js";
 import {
   errorHandlerMiddleware
@@ -9,6 +10,16 @@ import cookieParser from "cookie-parser";
 import orderRoutes from "./src/order/routes/order.routes.js";
 
 const app = express();
+
+// CORS — must come before routes so preflight OPTIONS requests are handled
+app.use(
+  cors({
+    origin: [process.env.FRONTEND_URL, "http://localhost:5173"],
+    methods: ["GET", "POST", "DELETE", "PUT"],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 app.use(cookieParser());
 
