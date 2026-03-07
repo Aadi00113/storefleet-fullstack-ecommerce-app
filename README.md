@@ -5,8 +5,20 @@
 ![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
 ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://storefleet-fullstack-ecommerce-app.vercel.app/)
 
 A full-stack e-commerce web application built with the **MERN stack** (MongoDB, Express, React, Node.js). StoreFleet supports user authentication, product management, order placement, reviews, and a complete admin dashboard.
+
+---
+
+## 🌐 Live Demo
+
+> **[🚀 View Live App → https://storefleet-fullstack-ecommerce-app.vercel.app/](https://storefleet-fullstack-ecommerce-app.vercel.app/)**
+
+| Service | URL |
+|---|---|
+| **Frontend (Vercel)** | [storefleet-fullstack-ecommerce-app.vercel.app](https://storefleet-fullstack-ecommerce-app.vercel.app/) |
+| **Backend API (Render)** | [storefleet-fullstack-ecommerce-app.onrender.com](https://storefleet-fullstack-ecommerce-app.onrender.com) |
 
 ---
 
@@ -76,8 +88,8 @@ storefleet-fullstack-ecommeapp/
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/YOUR_USERNAME/storefleet-fullstack-ecommeapp.git
-cd storefleet-fullstack-ecommeapp
+git clone https://github.com/Aadi00113/storefleet-fullstack-ecommerce-app.git
+cd storefleet-fullstack-ecommerce-app
 ```
 
 ### 2. Setup Backend
