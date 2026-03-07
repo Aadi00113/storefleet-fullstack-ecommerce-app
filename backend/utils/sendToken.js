@@ -14,8 +14,8 @@ export const sendToken = async (user, res, statusCode) => {
     //   sameSite: "none" → allow cross-site requests
     //   secure: true     → required when sameSite is "none"
     // In development (same-origin via Vite proxy) use "lax" without secure
-    sameSite: isProduction ? "none" : "lax",
-    secure: isProduction,
+    sameSite: "none",
+    secure: true,
   };
 
   res
