@@ -14,7 +14,7 @@ const app = express();
 // CORS — must come before routes so preflight OPTIONS requests are handled
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL, "http://localhost:5173"],
+    origin: [process.env.FRONTEND_URL],
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
   })
