@@ -168,9 +168,9 @@ export default function AdminProductsPage() {
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label className="form-label">Image URL (optional)</label>
+                                <label className="form-label">Image URL <span style={{ color: 'var(--error, #ef4444)' }}>*</span></label>
                                 <input className="form-input" type="url" value={form.images[0]?.url || ''}
-                                    onChange={handleImgUrl} placeholder="https://…" />
+                                    onChange={handleImgUrl} placeholder="https://…" required />
                             </div>
                             <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem' }}>
                                 <button className="btn btn-primary" type="submit" disabled={saving} style={{ flex: 1 }}>
