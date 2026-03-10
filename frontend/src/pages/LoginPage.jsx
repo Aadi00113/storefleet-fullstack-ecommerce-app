@@ -28,12 +28,12 @@ export default function LoginPage() {
     }
 
     return (
-        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', background: 'var(--gradient-hero)' }}>
-            <div className="glass-card page-enter" style={{ width: '100%', maxWidth: 420, padding: '2.5rem' }}>
-                <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                    <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>🚀</div>
-                    <h1 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '0.25rem' }}>Welcome Back</h1>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>Sign in to your FleetStore account</p>
+        <div className="min-h-screen flex items-center justify-center p-8 hero-bg">
+            <div className="glass-card page-enter w-full max-w-[420px] p-10">
+                <div className="text-center mb-8">
+                    <div className="text-4xl mb-2">🚀</div>
+                    <h1 className="text-2xl font-extrabold mb-1">Welcome Back</h1>
+                    <p className="text-text-sub text-sm">Sign in to your StoreFleet account</p>
                 </div>
 
                 <form onSubmit={handleSubmit}>
@@ -48,8 +48,8 @@ export default function LoginPage() {
                             onChange={handleChange} placeholder="••••••••" required />
                     </div>
 
-                    <div style={{ textAlign: 'right', marginBottom: '1.25rem' }}>
-                        <Link to="/forgot-password" style={{ color: 'var(--accent-primary)', fontSize: '0.8125rem' }}>
+                    <div className="text-right mb-5">
+                        <Link to="/forgot-password" className="text-accent text-[0.8125rem]">
                             Forgot password?
                         </Link>
                     </div>
@@ -59,9 +59,9 @@ export default function LoginPage() {
                     </button>
                 </form>
 
-                <p style={{ textAlign: 'center', marginTop: '1.5rem', color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+                <p className="text-center mt-6 text-text-sub text-sm">
                     New to StoreFleet?{' '}
-                    <Link to="/register" style={{ color: 'var(--accent-primary)', fontWeight: 600 }}>Create an account</Link>
+                    <Link to="/register" className="text-accent font-semibold">Create an account</Link>
                 </p>
             </div>
         </div>

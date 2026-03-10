@@ -2,28 +2,19 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
     return (
-        <footer style={{
-            borderTop: '1px solid var(--border-color)',
-            marginTop: '4rem',
-            padding: '2.5rem 0',
-            background: 'var(--bg-secondary)',
-        }}>
-            <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.25rem', fontWeight: 800 }}>
+        <footer className="border-t mt-16 py-10 bg-secondary" style={{ borderColor: 'var(--border-color)' }}>
+            <div className="container flex flex-col items-center gap-4">
+                <div className="flex items-center gap-2 text-xl font-extrabold">
                     <span>🚀</span>
                     <span className="gradient-text">StoreFleet</span>
                 </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
-                    Your one-stop e‑commerce destination
-                </p>
-                <div style={{ display: 'flex', gap: '2rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                    <Link to="/products" style={{ color: 'inherit' }}>Products</Link>
-                    <Link to="/login" style={{ color: 'inherit' }}>Login</Link>
-                    <Link to="/register" style={{ color: 'inherit' }}>Register</Link>
+                <p className="text-text-muted text-sm">Your one-stop e‑commerce destination</p>
+                <div className="flex gap-8 text-[0.85rem] text-text-sub">
+                    <Link to="/products">Products</Link>
+                    <Link to="/login">Login</Link>
+                    <Link to="/register">Register</Link>
                 </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', marginTop: '0.5rem' }}>
-                    © 2025 StoreFleet. All rights reserved.
-                </p>
+                <p className="text-text-muted text-xs mt-2">© 2025 StoreFleet. All rights reserved.</p>
             </div>
         </footer>
     )

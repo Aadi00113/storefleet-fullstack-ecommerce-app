@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { getProductDetails, getProductReviews, rateProduct, deleteReview } from '../api/productService'
+import { getProductDetails, rateProduct, deleteReview } from '../api/productService'
 import StarRating from '../components/StarRating'
 import Loader from '../components/Loader'
 import { useAuth } from '../context/AuthContext'
@@ -35,8 +35,7 @@ export default function ProductDetailPage() {
         try {
             await rateProduct(id, { rating: userRating, comment })
             toast.success('Review submitted!')
-            setUserRating(0)
-            setComment('')
+            setUserRating(0); setComment('')
             fetchProduct()
         } catch (e) {
             toast.error(e.message)
@@ -57,9 +56,9 @@ export default function ProductDetailPage() {
 
     if (loading) return <Loader />
     if (!product) return (
-        <div className="container page-content" style={{ textAlign: 'center', paddingTop: '4rem' }}>
-            <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem' }}>Product not found.</p>
-            <Link to="/products" className="btn btn-primary" style={{ marginTop: '1rem' }}>← Back to Products</Link>
+        <div className="container page-content text-center pt-16">
+            <p className="text-text-muted text-lg">Product not found.</p>
+            <Link to="/products" className="btn btn-primary mt-4">← Back to Products</Link>
         </div>
     )
 
@@ -68,37 +67,31 @@ export default function ProductDetailPage() {
     return (
         <div className="container page-content page-enter">
             {/* Breadcrumb */}
-            <div style={{ marginBottom: '1.5rem', fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', gap: '0.5rem' }}>
-                <Link to="/" style={{ color: 'var(--text-muted)' }}>Home</Link>
+            <div className="flex gap-2 text-[0.85rem] text-text-muted mb-6">
+                <Link to="/" className="text-text-muted hover:text-accent">Home</Link>
                 <span>/</span>
-                <Link to="/products" style={{ color: 'var(--text-muted)' }}>Products</Link>
+                <Link to="/products" className="text-text-muted hover:text-accent">Products</Link>
                 <span>/</span>
-                <span style={{ color: 'var(--text-primary)' }}>{product.name}</span>
+                <span className="text-text-main">{product.name}</span>
             </div>
 
             {/* Main Grid */}
-            <div className="product-detail-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', marginBottom: '3rem' }}>
+            <div className="product-detail-grid grid grid-cols-2 gap-12 mb-12">
                 {/* Images */}
                 <div>
-                    <div style={{
-                        borderRadius: 'var(--radius-lg)', overflow: 'hidden',
-                        background: 'var(--bg-card)', border: '1px solid var(--border-color)',
-                        aspectRatio: '4/3', marginBottom: '0.75rem',
-                    }}>
+                    <div className="rounded-2xl overflow-hidden mb-3"
+                        style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', aspectRatio: '4/3' }}>
                         <img src={images[selectedImg]?.url || PLACEHOLDER} alt={product.name}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            className="w-full h-full object-cover"
                             onError={(e) => { e.target.src = PLACEHOLDER }} />
                     </div>
                     {images.length > 1 && (
-                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <div className="flex gap-2">
                             {images.map((img, i) => (
-                                <div key={i}
-                                    onClick={() => setSelectedImg(i)}
-                                    style={{
-                                        width: 60, height: 60, borderRadius: 'var(--radius-sm)', overflow: 'hidden',
-                                        cursor: 'pointer', border: i === selectedImg ? '2px solid var(--accent-primary)' : '2px solid var(--border-color)',
-                                    }}>
-                                    <img src={img.url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <div key={i} onClick={() => setSelectedImg(i)}
+                                    className="w-[60px] h-[60px] rounded-lg overflow-hidden cursor-pointer"
+                                    style={{ border: i === selectedImg ? '2px solid #f59e0b' : '2px solid var(--border-color)' }}>
+                                    <img src={img.url} alt="" className="w-full h-full object-cover" />
                                 </div>
                             ))}
                         </div>
@@ -106,67 +99,59 @@ export default function ProductDetailPage() {
                 </div>
 
                 {/* Info */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div className="flex flex-col gap-4">
                     <div>
-                        <span className="badge badge-info" style={{ marginBottom: '0.75rem' }}>{product.category}</span>
-                        <h1 style={{ fontSize: '1.75rem', fontWeight: 800, lineHeight: 1.3, marginBottom: '0.75rem' }}>{product.name}</h1>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span className="badge badge-info mb-3">{product.category}</span>
+                        <h1 className="text-[1.75rem] font-extrabold leading-snug mb-3">{product.name}</h1>
+                        <div className="flex items-center gap-2">
                             <StarRating rating={product.rating} size={20} />
-                            <span style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
+                            <span className="text-text-muted text-sm">
                                 ({product.reviews?.length || 0} review{product.reviews?.length !== 1 ? 's' : ''})
                             </span>
                         </div>
                     </div>
 
-                    <div style={{ fontSize: '2.25rem', fontWeight: 800, color: 'var(--accent-primary)' }}>
+                    <div className="text-[2.25rem] font-extrabold text-accent">
                         ₹{product.price?.toLocaleString()}
                     </div>
 
-                    <div style={{ display: 'inline-flex', gap: '0.5rem', alignItems: 'center' }}>
-                        <span style={{
-                            padding: '0.3rem 0.875rem', borderRadius: '50px', fontSize: '0.8125rem', fontWeight: 600,
+                    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[0.8125rem] font-semibold w-fit"
+                        style={{
                             background: product.stock > 0 ? 'rgba(16,185,129,0.15)' : 'rgba(239,68,68,0.15)',
                             color: product.stock > 0 ? 'var(--success)' : 'var(--error)',
                         }}>
-                            {product.stock > 0 ? `✓ In Stock (${product.stock} left)` : '✕ Out of Stock'}
-                        </span>
-                    </div>
+                        {product.stock > 0 ? `✓ In Stock (${product.stock} left)` : '✕ Out of Stock'}
+                    </span>
 
                     <div className="divider" />
 
                     <div>
-                        <h3 style={{ fontWeight: 600, marginBottom: '0.5rem' }}>Description</h3>
-                        <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7 }}>{product.description}</p>
+                        <h3 className="font-semibold mb-2">Description</h3>
+                        <p className="text-text-sub leading-relaxed">{product.description}</p>
                     </div>
 
                     <div className="divider" />
 
-                    {/* Place Order Quick Link */}
                     {product.stock > 0 && (
-                        <Link
-                            to="/place-order"
-                            state={{ product }}
-                            className="btn btn-primary btn-lg"
-                            style={{ alignSelf: 'flex-start' }}
-                        >
+                        <Link to="/place-order" state={{ product }} className="btn btn-primary btn-lg self-start">
                             🛒 Place Order
                         </Link>
                     )}
                 </div>
             </div>
 
-            {/* Reviews Section */}
-            <div className="reviews-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+            {/* Reviews */}
+            <div className="reviews-grid grid grid-cols-2 gap-8">
                 {/* Write Review */}
-                <div className="glass-card" style={{ padding: '1.5rem' }}>
-                    <h2 style={{ fontWeight: 700, marginBottom: '1rem', fontSize: '1.125rem' }}>Write a Review</h2>
+                <div className="glass-card p-6">
+                    <h2 className="font-bold mb-4 text-lg">Write a Review</h2>
                     {!user ? (
-                        <p style={{ color: 'var(--text-muted)' }}>
-                            <Link to="/login" style={{ color: 'var(--accent-primary)' }}>Login</Link> to leave a review.
+                        <p className="text-text-muted">
+                            <Link to="/login" className="text-accent">Login</Link> to leave a review.
                         </p>
                     ) : (
                         <>
-                            <div style={{ marginBottom: '1rem' }}>
+                            <div className="mb-4">
                                 <label className="form-label">Your Rating</label>
                                 <StarRating rating={userRating} onRate={setUserRating} size={28} />
                             </div>
@@ -190,19 +175,17 @@ export default function ProductDetailPage() {
 
                 {/* All Reviews */}
                 <div>
-                    <h2 style={{ fontWeight: 700, marginBottom: '1rem', fontSize: '1.125rem' }}>
+                    <h2 className="font-bold mb-4 text-lg">
                         Customer Reviews ({product.reviews?.length || 0})
                     </h2>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', maxHeight: 400, overflowY: 'auto' }}>
+                    <div className="flex flex-col gap-3 max-h-[400px] overflow-y-auto">
                         {product.reviews?.length ? product.reviews.map((rev) => (
-                            <div key={rev._id} style={{
-                                background: 'var(--bg-card)', borderRadius: 'var(--radius-md)',
-                                border: '1px solid var(--border-color)', padding: '0.875rem',
-                            }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.375rem' }}>
+                            <div key={rev._id} className="rounded-xl p-3.5"
+                                style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
+                                <div className="flex justify-between items-start mb-1">
                                     <div>
-                                        <span style={{ fontWeight: 600, fontSize: '0.875rem' }}>{rev.name}</span>
-                                        <div style={{ marginTop: '2px' }}><StarRating rating={rev.rating} size={13} /></div>
+                                        <span className="font-semibold text-sm">{rev.name}</span>
+                                        <div className="mt-0.5"><StarRating rating={rev.rating} size={13} /></div>
                                     </div>
                                     {user && (user._id === rev.user || user.role === 'admin') && (
                                         <button className="btn btn-danger btn-sm" onClick={() => handleDeleteReview(rev._id)}>
@@ -210,10 +193,10 @@ export default function ProductDetailPage() {
                                         </button>
                                     )}
                                 </div>
-                                {rev.comment && <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', marginTop: '0.25rem' }}>{rev.comment}</p>}
+                                {rev.comment && <p className="text-text-sub text-sm mt-1">{rev.comment}</p>}
                             </div>
                         )) : (
-                            <p style={{ color: 'var(--text-muted)' }}>No reviews yet. Be the first!</p>
+                            <p className="text-text-muted">No reviews yet. Be the first!</p>
                         )}
                     </div>
                 </div>

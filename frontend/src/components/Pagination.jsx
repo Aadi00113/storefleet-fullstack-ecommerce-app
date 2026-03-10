@@ -5,7 +5,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }) {
     for (let i = 1; i <= totalPages; i++) pages.push(i)
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginTop: '2.5rem', flexWrap: 'wrap' }}>
+        <div className="flex justify-center gap-2 mt-10 flex-wrap">
             <button
                 className="btn btn-secondary btn-sm"
                 onClick={() => onPageChange(currentPage - 1)}
@@ -18,17 +18,12 @@ export default function Pagination({ currentPage, totalPages, onPageChange }) {
                 <button
                     key={p}
                     onClick={() => onPageChange(p)}
+                    className="w-9 h-9 rounded-lg text-sm font-medium transition-all duration-150 cursor-pointer border"
                     style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: 'var(--radius-sm)',
-                        border: p === currentPage ? 'none' : '1px solid var(--border-color)',
-                        background: p === currentPage ? 'var(--accent-primary)' : 'transparent',
+                        background: p === currentPage ? '#f59e0b' : 'transparent',
                         color: p === currentPage ? '#0a0e1a' : 'var(--text-secondary)',
                         fontWeight: p === currentPage ? 700 : 400,
-                        cursor: 'pointer',
-                        fontSize: '0.875rem',
-                        transition: 'all 0.15s ease',
+                        borderColor: p === currentPage ? 'transparent' : 'var(--border-color)',
                     }}
                 >
                     {p}

@@ -7,11 +7,9 @@ export default function ProfilePage() {
     const { user, setUser } = useAuth()
     const [tab, setTab] = useState('info')
 
-    // Update profile state
     const [profileForm, setProfileForm] = useState({ name: user?.name || '', email: user?.email || '' })
     const [profileLoading, setProfileLoading] = useState(false)
 
-    // Update password state
     const [pwForm, setPwForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' })
     const [pwLoading, setPwLoading] = useState(false)
 
@@ -45,23 +43,20 @@ export default function ProfilePage() {
     }
 
     return (
-        <div className="container page-content page-enter" style={{ maxWidth: 700 }}>
-            <h1 className="section-title" style={{ marginBottom: '0.5rem' }}>My <span>Profile</span></h1>
+        <div className="container page-content page-enter max-w-[700px]">
+            <h1 className="section-title mb-2">My <span>Profile</span></h1>
             <p className="section-subtitle">Manage your account settings</p>
 
             {/* Avatar card */}
-            <div className="glass-card" style={{ padding: '1.5rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                <div style={{
-                    width: 70, height: 70, borderRadius: '50%', background: 'var(--gradient-gold)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '2rem', fontWeight: 800, color: '#0a0e1a', flexShrink: 0,
-                }}>
+            <div className="glass-card p-6 mb-6 flex items-center gap-6">
+                <div className="w-[70px] h-[70px] rounded-full flex items-center justify-center text-[2rem] font-extrabold shrink-0"
+                    style={{ background: 'var(--gradient-gold)', color: '#0a0e1a' }}>
                     {user?.name?.charAt(0).toUpperCase()}
                 </div>
                 <div>
-                    <h2 style={{ fontWeight: 700, fontSize: '1.25rem' }}>{user?.name}</h2>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>{user?.email}</p>
-                    <span className={`badge ${user?.role === 'admin' ? 'badge-admin' : 'badge-info'}`} style={{ marginTop: '0.375rem' }}>
+                    <h2 className="font-bold text-xl">{user?.name}</h2>
+                    <p className="text-text-sub text-sm">{user?.email}</p>
+                    <span className={`badge mt-1.5 ${user?.role === 'admin' ? 'badge-admin' : 'badge-info'}`}>
                         {user?.role}
                     </span>
                 </div>
@@ -70,13 +65,15 @@ export default function ProfilePage() {
             {/* Tabs */}
             <div className="tabs">
                 {[['info', '👤 Edit Profile'], ['password', '🔒 Change Password']].map(([key, label]) => (
-                    <button key={key} className={`tab-btn${tab === key ? ' active' : ''}`} onClick={() => setTab(key)}>{label}</button>
+                    <button key={key} className={`tab-btn${tab === key ? ' active' : ''}`} onClick={() => setTab(key)}>
+                        {label}
+                    </button>
                 ))}
             </div>
 
             {/* Edit Profile */}
             {tab === 'info' && (
-                <div className="glass-card" style={{ padding: '1.75rem' }}>
+                <div className="glass-card p-7">
                     <form onSubmit={handleProfileUpdate}>
                         <div className="form-group">
                             <label className="form-label">Full Name</label>
@@ -99,7 +96,7 @@ export default function ProfilePage() {
 
             {/* Change Password */}
             {tab === 'password' && (
-                <div className="glass-card" style={{ padding: '1.75rem' }}>
+                <div className="glass-card p-7">
                     <form onSubmit={handlePasswordUpdate}>
                         <div className="form-group">
                             <label className="form-label">Current Password</label>

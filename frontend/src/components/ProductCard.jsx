@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import StarRating from './StarRating'
-import './ProductCard.css'
 
 const PLACEHOLDER = 'https://placehold.co/300x220/131c2e/f59e0b?text=No+Image'
 

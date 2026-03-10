@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { logoutUser } from '../api/userService'
 import { toast } from 'react-toastify'
-import './Navbar.css'
 
 export default function Navbar() {
     const { user, setUser } = useAuth()

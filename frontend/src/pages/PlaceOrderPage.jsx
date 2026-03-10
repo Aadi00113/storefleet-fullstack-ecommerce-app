@@ -27,24 +27,11 @@ export default function PlaceOrderPage() {
         setLoading(true)
         try {
             await placeOrder({
-                shippingInfo: {
-                    ...shipping,
-                    pincode: Number(shipping.pincode),
-                    phoneNumber: Number(shipping.phoneNumber),
-                },
-                orderedItems: [{
-                    name: product.name,
-                    price: product.price,
-                    quantity: qty,
-                    image: product.images?.[0]?.url || 'placeholder',
-                    product: product._id,
-                }],
+                shippingInfo: { ...shipping, pincode: Number(shipping.pincode), phoneNumber: Number(shipping.phoneNumber) },
+                orderedItems: [{ name: product.name, price: product.price, quantity: qty, image: product.images?.[0]?.url || 'placeholder', product: product._id }],
                 paymentInfo: { id: `PAY_${Date.now()}`, status: true },
                 paidAt: new Date(),
-                itemsPrice: totalPrice,
-                taxPrice,
-                shippingPrice,
-                totalPrice: grandTotal,
+                itemsPrice: totalPrice, taxPrice, shippingPrice, totalPrice: grandTotal,
             })
             toast.success('Order placed successfully! 🎉')
             navigate('/')
@@ -56,21 +43,21 @@ export default function PlaceOrderPage() {
     }
 
     return (
-        <div className="container page-content page-enter" style={{ maxWidth: 900 }}>
-            <h1 className="section-title" style={{ marginBottom: '0.5rem' }}>Place <span>Order</span></h1>
+        <div className="container page-content page-enter max-w-[900px]">
+            <h1 className="section-title mb-2">Place <span>Order</span></h1>
             <p className="section-subtitle">Review your order details</p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '2rem' }}>
+            <div className="grid gap-8" style={{ gridTemplateColumns: '1fr 340px' }}>
                 {/* Shipping Form */}
-                <div className="glass-card" style={{ padding: '1.75rem' }}>
-                    <h2 style={{ fontWeight: 700, marginBottom: '1.25rem' }}>Shipping Information</h2>
+                <div className="glass-card p-7">
+                    <h2 className="font-bold mb-5">Shipping Information</h2>
                     <form id="order-form" onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label className="form-label">Full Address</label>
                             <input className="form-input" name="address" value={shipping.address}
                                 onChange={handleChange} placeholder="123 Main Street, Apt 4B" required />
                         </div>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                        <div className="grid grid-cols-2 gap-4">
                             <div className="form-group">
                                 <label className="form-label">State</label>
                                 <input className="form-input" name="state" value={shipping.state}
@@ -82,7 +69,7 @@ export default function PlaceOrderPage() {
                                     onChange={handleChange} placeholder="IN" required />
                             </div>
                         </div>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                        <div className="grid grid-cols-2 gap-4">
                             <div className="form-group">
                                 <label className="form-label">Pincode</label>
                                 <input className="form-input" name="pincode" type="number" value={shipping.pincode}
@@ -99,42 +86,42 @@ export default function PlaceOrderPage() {
 
                 {/* Order Summary */}
                 <div>
-                    <div className="glass-card" style={{ padding: '1.5rem', marginBottom: '1rem' }}>
-                        <h2 style={{ fontWeight: 700, marginBottom: '1rem', fontSize: '1rem' }}>Order Summary</h2>
+                    <div className="glass-card p-6 mb-4">
+                        <h2 className="font-bold mb-4 text-base">Order Summary</h2>
                         {product ? (
                             <>
-                                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)' }}>
+                                <div className="flex gap-3 items-center mb-4 pb-4"
+                                    style={{ borderBottom: '1px solid var(--border-color)' }}>
                                     <img
                                         src={product.images?.[0]?.url || 'https://placehold.co/60x60/131c2e/f59e0b?text=P'}
-                                        style={{ width: 56, height: 56, borderRadius: 'var(--radius-sm)', objectFit: 'cover' }}
-                                        alt={product.name}
+                                        className="w-14 h-14 rounded-lg object-cover" alt={product.name}
                                     />
                                     <div>
-                                        <p style={{ fontWeight: 600, fontSize: '0.875rem', lineHeight: 1.4 }}>{product.name}</p>
-                                        <p style={{ color: 'var(--accent-primary)', fontWeight: 700, fontSize: '0.9375rem' }}>₹{product.price?.toLocaleString()}</p>
+                                        <p className="font-semibold text-sm leading-snug">{product.name}</p>
+                                        <p className="text-accent font-bold text-[0.9375rem]">₹{product.price?.toLocaleString()}</p>
                                     </div>
                                 </div>
 
                                 <div className="form-group">
                                     <label className="form-label">Quantity</label>
-                                    <input className="form-input" type="number" min={1} max={product.stock} value={qty}
-                                        onChange={(e) => setQty(Number(e.target.value))} style={{ width: 80 }} />
+                                    <input className="form-input w-20" type="number" min={1} max={product.stock}
+                                        value={qty} onChange={(e) => setQty(Number(e.target.value))} />
                                 </div>
 
                                 <div className="divider" />
                                 {[['Items', `₹${totalPrice.toLocaleString()}`], ['Tax (18%)', `₹${taxPrice.toLocaleString()}`], ['Shipping', shippingPrice === 0 ? 'FREE' : `₹${shippingPrice}`]].map(([l, v]) => (
-                                    <div key={l} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+                                    <div key={l} className="flex justify-between mb-2 text-sm text-text-sub">
                                         <span>{l}</span><span>{v}</span>
                                     </div>
                                 ))}
                                 <div className="divider" />
-                                <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700, fontSize: '1.0625rem' }}>
+                                <div className="flex justify-between font-bold text-[1.0625rem]">
                                     <span>Total</span>
                                     <span className="gradient-text">₹{grandTotal.toLocaleString()}</span>
                                 </div>
                             </>
                         ) : (
-                            <p style={{ color: 'var(--text-muted)' }}>No product selected.</p>
+                            <p className="text-text-muted">No product selected.</p>
                         )}
                     </div>
 
