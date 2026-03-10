@@ -16,18 +16,20 @@ import ResetPasswordPage from './pages/ResetPasswordPage'
 // User pages
 import ProfilePage from './pages/ProfilePage'
 import PlaceOrderPage from './pages/PlaceOrderPage'
+import MyOrdersPage from './pages/MyOrdersPage'
 
 // Admin pages
 import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 import AdminProductsPage from './pages/admin/AdminProductsPage'
 import AdminUsersPage from './pages/admin/AdminUsersPage'
+import AdminOrdersPage from './pages/admin/AdminOrdersPage'
 
 function NotFound() {
     return (
-        <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
-            <div style={{ fontSize: '4rem' }}>🚀</div>
-            <h1 style={{ fontSize: '2rem', fontWeight: 800 }}>404 — Page Not Found</h1>
-            <p style={{ color: 'var(--text-secondary)' }}>The page you're looking for doesn't exist.</p>
+        <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4">
+            <div className="text-6xl">🚀</div>
+            <h1 className="text-3xl font-extrabold">404 — Page Not Found</h1>
+            <p className="text-text-sub">The page you're looking for doesn't exist.</p>
             <a href="/" className="btn btn-primary">Go Home</a>
         </div>
     )
@@ -51,11 +53,13 @@ export default function App() {
                     {/* User protected */}
                     <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
                     <Route path="/place-order" element={<ProtectedRoute><PlaceOrderPage /></ProtectedRoute>} />
+                    <Route path="/my-orders" element={<ProtectedRoute><MyOrdersPage /></ProtectedRoute>} />
 
                     {/* Admin protected */}
                     <Route path="/admin/dashboard" element={<ProtectedRoute adminOnly><AdminDashboardPage /></ProtectedRoute>} />
                     <Route path="/admin/products" element={<ProtectedRoute adminOnly><AdminProductsPage /></ProtectedRoute>} />
                     <Route path="/admin/users" element={<ProtectedRoute adminOnly><AdminUsersPage /></ProtectedRoute>} />
+                    <Route path="/admin/orders" element={<ProtectedRoute adminOnly><AdminOrdersPage /></ProtectedRoute>} />
 
                     {/* 404 */}
                     <Route path="*" element={<NotFound />} />

@@ -51,11 +51,13 @@ export default function Navbar() {
                                 </div>
                                 <div className="dropdown-divider" />
                                 <Link to="/profile" className="dropdown-item" onClick={close}>My Profile</Link>
+                                <Link to="/my-orders" className="dropdown-item" onClick={close}>📦 My Orders</Link>
                                 {user.role === 'admin' && (
                                     <>
                                         <Link to="/admin/dashboard" className="dropdown-item" onClick={close}>Dashboard</Link>
                                         <Link to="/admin/products" className="dropdown-item" onClick={close}>Manage Products</Link>
                                         <Link to="/admin/users" className="dropdown-item" onClick={close}>Manage Users</Link>
+                                        <Link to="/admin/orders" className="dropdown-item" onClick={close}>Manage Orders</Link>
                                     </>
                                 )}
                                 <div className="dropdown-divider" />
@@ -94,19 +96,21 @@ export default function Navbar() {
                             <span className="mobile-user-role">{user.role}</span>
                         </div>
                         <Link to="/profile" className="mobile-nav-link" onClick={close}>👤 My Profile</Link>
+                        <Link to="/my-orders" className="mobile-nav-link" onClick={close}>📦 My Orders</Link>
                         {user.role === 'admin' && (
                             <>
                                 <Link to="/admin/products" className="mobile-nav-link" onClick={close}>📦 Manage Products</Link>
                                 <Link to="/admin/users" className="mobile-nav-link" onClick={close}>👥 Manage Users</Link>
+                                <Link to="/admin/orders" className="mobile-nav-link" onClick={close}>🗒️ Manage Orders</Link>
                             </>
                         )}
                         <div className="mobile-divider" />
                         <button onClick={handleLogout} className="mobile-nav-link mobile-nav-danger">🚪 Logout</button>
                     </>
                 ) : (
-                    <div style={{ display: 'flex', gap: '0.75rem', padding: '0.75rem 1rem' }}>
-                        <Link to="/login" className="btn btn-secondary btn-sm" style={{ flex: 1, justifyContent: 'center' }} onClick={close}>Login</Link>
-                        <Link to="/register" className="btn btn-primary btn-sm" style={{ flex: 1, justifyContent: 'center' }} onClick={close}>Sign Up</Link>
+                    <div className="flex gap-3 p-3">
+                        <Link to="/login" className="btn btn-secondary btn-sm flex-1 justify-center" onClick={close}>Login</Link>
+                        <Link to="/register" className="btn btn-primary btn-sm flex-1 justify-center" onClick={close}>Sign Up</Link>
                     </div>
                 )}
             </div>
